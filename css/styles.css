@@ -124,9 +124,10 @@ footer {
 .mainContenedorCarritoComprasBotones{
     display: flex;
     flex-direction: column;
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
     width: 70%;
     background-color:  #ddeeec;
+    border-radius: 8px;
     padding: 1rem;
 }
 .mainContenedorCarritoComprasBotones h2{
