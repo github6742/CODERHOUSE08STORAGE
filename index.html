@@ -3,14 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pre-Entrega 7: Interfaz dinámica con DOM y Eventos</title>
+    <title>Pre-Entrega 8: STORAGE</title>
     <link rel="stylesheet" href="./css/styles.css">
     <script defer src="./js/main.js"></script>
 </head>
 <body> 
-    <header>        
+    <header>     
+        <div class="headerContenedor">
+             <div class="headerContendorElementos">
+                  <h1 class="headerTitulo">MODULO DE ARTICULOS, PRECIOS, COMPRAS(STORAGE)</h1>
+            </div>
+        </div>   
     </header>
     <main>
+        <div id="idMainContenedor" class="mainContenedor">
+       <div id="idMainContenedorElementos" class="mainContenedorElementos">
+
+          <h2 id="idMainTitulo" class="mainTitulo">Crear Articulo</h2>
+          <div id="idMainContenedorFormulario" class="mainContenedorFormulario"> 
+              <form id="idMainFormulario" class="mainFormulario" method="POST"><div class="mainFormularioFila">
+                    <label class="labelGlobal" for="idCrearArticuloCodigo">Codigo:</label>
+                    <input class="inputGlobal" type="text" id="idCrearArticuloCodigo" name="crearArticuloCodigo" required="">
+                 </div>
+                 <div class="mainFormularioFila">
+                    <label class="labelGlobal" for="idCrearArticuloNombre">Nombre:</label>
+                    <input class="inputGlobal" type="text" id="idCrearArticuloNombre" name="crearArticuloNombre" required="">
+                 </div>
+                 <div class="mainFormularioFila">
+                    <label class="labelGlobal" for="idCrearArticuloMarca">Marca:</label>
+                    <input class="inputGlobal" type="text" id="idCrearArticuloMarca" name="crearArticuloMarca" required="">
+                 </div>
+                 <div class="mainFormularioFila">
+                    <label class="labelGlobal" for="idCrearArticuloCategoria">Categoria:</label>
+                    <select id="idCrearArticuloCategoria" name="crearArticuloCategoria" required="">
+                      <option value="">Seleccione Una Categoria</option>
+                      <option value="TELEVISOR">TELEVISOR</option>
+                      <option value="COCINA">COCINA</option>
+                      <option value="HELADERA">HELADERA</option>
+                    </select>
+                 </div>
+                 <div class="mainFormularioFila">
+                    <label class="labelGlobal" for="idCrearArticuloPrecio">Precio:</label>
+                    <input class="inputGlobal" type="number" id="idCrearArticuloPrecio" name="crearArticuloPrecio" required="">
+                 </div>
+                 <div class="mainFormularioFila">
+                    <button class="buttonGlobal" type="submit">Guardar</button>
+                 </div>
+                </form>
+          </div>
+
+          
+
+          <h2 id="idMainTitulo" class="mainTitulo">Buscar Articulos</h2>
+          <div id="idMainContenedorFormulario" class="mainContenedorFormulario"> 
+              <form id="idMainFormulario" class="mainFormulario" method="POST">
+                 <div class="mainFormularioFila">
+                    <label class="labelGlobal" for="idBuscarArticuloCategoria">Categoria:</label>
+                    <select id="idBuscarArticuloCategoria" name="buscarArticuloCategoria" >
+                      <option value="">Seleccione Una Categoria</option>
+                      <option value="TELEVISOR">TELEVISOR</option>
+                      <option value="COCINA">COCINA</option>
+                      <option value="HELADERA">HELADERA</option>
+                    </select>
+                 </div>
+                 <div class="mainFormularioFila">
+                    <button class="buttonGlobal" type="submit">Buscar</button>
+                 </div>
+                </form>
+          </div>
+
+         <div id="idMainContenedorCarritoComprasBotones" class="mainContenedorCarritoComprasBotones">
+            <h2 id="idTituloBotonesCarrito" class="tituloBotonesCarrito">Carrito de Compras</h2>
+            <div id="idMainCarritoComprasBotones" class="mainCarritoComprasBotones">
+                <button id="idBotonVerCarritoCompras" class="buttonGlobal">Ver</button>
+                <button id="idBotonOcultarCarritoCompras" class="buttonGlobal">Ocultar</button>
+                <button id="idBotonOcultarCarritoCompras" class="buttonGlobal">Vaciar</button>
+                <button id="idBotonOcultarCarritoCompras" class="buttonGlobal">Confirmar</button>
+            </div>
+        </div>
+
+
+       </div>
+    </div>
     </main>
     <footer>
     </footer> 
