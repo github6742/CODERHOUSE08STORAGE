@@ -19,9 +19,10 @@
         <div id="idMainContenedor" class="mainContenedor">
        <div id="idMainContenedorElementos" class="mainContenedorElementos">
 
-          <h2 id="idMainTitulo" class="mainTitulo">Crear Articulo</h2>
-          <div id="idMainContenedorFormulario" class="mainContenedorFormulario"> 
-              <form id="idMainFormulario" class="mainFormulario" method="POST"><div class="mainFormularioFila">
+          <h2 id="idMainTituloCrear" class="mainTitulo">Crear Articulo</h2>
+          <div id="idMainContenedorFormularioCrear" class="mainContenedorFormulario"> 
+              <form id="idMainFormularioCrear" class="mainFormulario" method="POST">
+                 <div class="mainFormularioFila">
                     <label class="labelGlobal" for="idCrearArticuloCodigo">Codigo:</label>
                     <input class="inputGlobal" type="text" id="idCrearArticuloCodigo" name="crearArticuloCodigo" required="">
                  </div>
@@ -47,16 +48,14 @@
                     <input class="inputGlobal" type="number" id="idCrearArticuloPrecio" name="crearArticuloPrecio" required="">
                  </div>
                  <div class="mainFormularioFila">
-                    <button class="buttonGlobal" type="submit">Guardar</button>
+                    <button id="idBotonCrearArticulo" class="buttonGlobal" type="submit">Guardar</button>
                  </div>
                 </form>
-          </div>
+          </div>          
 
-          
-
-          <h2 id="idMainTitulo" class="mainTitulo">Buscar Articulos</h2>
-          <div id="idMainContenedorFormulario" class="mainContenedorFormulario"> 
-              <form id="idMainFormulario" class="mainFormulario" method="POST">
+          <h2 id="idMainTituloBuscar" class="mainTitulo">Buscar Articulos</h2>
+          <div id="idMainContenedorFormularioBuscar" class="mainContenedorFormulario"> 
+              <form id="idMainFormularioBuscar" class="mainFormulario" method="POST">
                  <div class="mainFormularioFila">
                     <label class="labelGlobal" for="idBuscarArticuloCategoria">Categoria:</label>
                     <select id="idBuscarArticuloCategoria" name="buscarArticuloCategoria" >
@@ -67,7 +66,7 @@
                     </select>
                  </div>
                  <div class="mainFormularioFila">
-                    <button class="buttonGlobal" type="submit">Buscar</button>
+                    <button id="idBotonBuscarArticulo" class="buttonGlobal" type="submit">Buscar</button>
                  </div>
                 </form>
           </div>
@@ -77,8 +76,8 @@
             <div id="idMainCarritoComprasBotones" class="mainCarritoComprasBotones">
                 <button id="idBotonVerCarritoCompras" class="buttonGlobal">Ver</button>
                 <button id="idBotonOcultarCarritoCompras" class="buttonGlobal">Ocultar</button>
-                <button id="idBotonOcultarCarritoCompras" class="buttonGlobal">Vaciar</button>
-                <button id="idBotonOcultarCarritoCompras" class="buttonGlobal">Confirmar</button>
+                <button id="idBotonVaciarCarritoCompras" class="buttonGlobal">Vaciar</button>
+                <button id="idBotonConfirmarCarritoCompras" class="buttonGlobal">Confirmar</button>
             </div>
         </div>
 
