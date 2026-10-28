@@ -209,39 +209,64 @@ function cargarArticulo(e){
   //
 }
 //
+
 function crearCard(articulo){
   //
+            //<h6>CATEGORIA: ${articulo.categoria.toUpperCase()}</h6>
+  return ` <div class="contenedorCard">
+              <div class="contenedorCardDatos"
+                <p>Id: ${articulo.id}</p>
+                <p>Codigo: ${articulo.codigo.toUpperCase()}</p>
+                <p>Nombre: ${articulo.nombre.toUpperCase()}</p>
+                <p>Marca:  ${articulo.marca.toUpperCase()}</p>
+                <p>Precio: $${articulo.precio}</p>  
+              </div>
+              <div id="idResultadoCantidadDiv${articulo.id}" class="resultadoCantidadDiv">
+                  <label class="labelCard" for="idResultadoCantidadInput${articulo.id}" >Cantidad: </label>            
+                  <input id="idResultadoCantidadInput${articulo.id}" class="inputCard" type="number" min=1 max=1000 value=1 required>
+              </div> 
+              <p id="idTotalArticuloBuscado${articulo.id}" class="totalArticuloBuscado">Importe Total:${articulo.precio*1}</p>
+              <button id="idResultadosBotonAgregar${articulo.id}" class="buttonCard">AGREGAR</button>
+            </div>
+            `;
+  //
+};
+/*
+function crearCard(articulo){
+  //
+            //<h6>CATEGORIA: ${articulo.categoria.toUpperCase()}</h6>
   return `
             <h6>ID: ${articulo.id}</h6>
             <h6>CODIGO: ${articulo.codigo.toUpperCase()}</h6>
             <h6>NOMBRE: ${articulo.nombre.toUpperCase()}</h6>
             <h6>MARCA:  ${articulo.marca.toUpperCase()}</h6>
-            <h6>CATEGORIA: ${articulo.categoria.toUpperCase()}</h6>
             <h6>PRECIO: $${articulo.precio}</h6>  
             <div id="idResultadoCantidadDiv${articulo.id}" class="resultadoCantidadDiv">
                <label class="labelGlobal" for="idResultadoCantidadInput${articulo.id}" >CANTIDAD: </label>            
                <input id="idResultadoCantidadInput${articulo.id}" class="inputGlobal" type="number" min=1 max=1000 value=1 required>
             </div> 
             <p id="idTotalArticuloBuscado${articulo.id}" class="totalArticuloBuscado">TOTAL ARTICULO:${articulo.precio*1}</p>
-            <button id="idResultadosBotonAgregar${articulo.id}" class="buttonGlobal">AGREGAR</button>`;
+            <button id="idResultadosBotonAgregar${articulo.id}" class="buttonCard">AGREGAR</button>`;
   //
 };
+*/
 //
 function crearCardCarrito(articulo){
   //
+  
+            //<h6>CATEGORIA: ${articulo.categoria.toUpperCase()}</h6>
   return `
             <h6>ID: ${articulo.id}</h6>
-            <h6>CODIGO: ${articulo.codigo.toUpperCase()}</h6>
-            <h6>NOMBRE: ${articulo.nombre.toUpperCase()}</h6>
-            <h6>MARCA:  ${articulo.marca.toUpperCase()}</h6>
-            <h6>CATEGORIA: ${articulo.categoria.toUpperCase()}</h6>
-            <h6>PRECIO: $${articulo.precio}</h6>  
+            <h6>Codigo: ${articulo.codigo.toUpperCase()}</h6>
+            <h6>Nombre: ${articulo.nombre.toUpperCase()}</h6>
+            <h6>Marca:  ${articulo.marca.toUpperCase()}</h6>
+            <h6>Precio: $${articulo.precio}</h6>  
             <div id="idCarritoComprasCantidadDiv${articulo.id}" class="carritoComprasCantidadDiv">
-               <label class="labelGlobal" for="idCarritoComprasCantidadInput${articulo.id}" >CANTIDAD CARRITO: </label>            
+               <label class="labelGlobal" for="idCarritoComprasCantidadInput${articulo.id}" >Cantidad Carrito: </label>            
                <input id="idCarritoComprasCantidadInput${articulo.id}" class="inputGlobal" type="number" min=1 max=1000 value=${articulo.cantidad} required>
             </div> 
-            <p id="idTotalArticuloComprado${articulo.id}" class="totalArticuloComprado">IMPORTE TOTAL ARTICULO:${articulo.precio*articulo.cantidad}</p>
-            <button id="idCarritoComprasBotonEliminar${articulo.id}" class="buttonGlobal">ELIMINAR</button>`;
+            <p id="idTotalArticuloComprado${articulo.id}" class="totalArticuloComprado">Importe Total:${articulo.precio*articulo.cantidad}</p>
+            <button id="idCarritoComprasBotonEliminar${articulo.id}" class="buttonCard">ELIMINAR</button>`;
   //
 };
 
