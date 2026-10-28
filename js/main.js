@@ -146,6 +146,7 @@ class Articulo {
       };
 };
 //
+
 function crearMensajeDialog(tipo, texto){
     //
     let titulo;
@@ -211,53 +212,105 @@ function cargarArticulo(e){
 function crearCard(articulo){
   //
   return `
-            <div id="IdArticuloEncontrado" class="articuloEncontrado">
             <h6>ID: ${articulo.id}</h6>
             <h6>CODIGO: ${articulo.codigo.toUpperCase()}</h6>
             <h6>NOMBRE: ${articulo.nombre.toUpperCase()}</h6>
             <h6>MARCA:  ${articulo.marca.toUpperCase()}</h6>
             <h6>CATEGORIA: ${articulo.categoria.toUpperCase()}</h6>
             <h6>PRECIO: $${articulo.precio}</h6>  
-            <div id="idArticuloEncontradoCantidadDiv" class="articuloEncontradoCantidadDiv">
-               <label class="labelGlobal" for="idCantidadArticuloEncontrado${articulo.id}Input" >CANTIDAD: </label>            
-               <input id="idCantidadArticuloEncontrado${articulo.id}Input" class="inputGlobal" type="number" min=1 max=1000 value=1 required>
+            <div id="idResultadoCantidadDiv${articulo.id}" class="resultadoCantidadDiv">
+               <label class="labelGlobal" for="idResultadoCantidadInput${articulo.id}" >CANTIDAD: </label>            
+               <input id="idResultadoCantidadInput${articulo.id}" class="inputGlobal" type="number" min=1 max=1000 value=1 required>
             </div> 
-            <a>PRECIO TOTAL:</a>
-            <button id="idBotonAgregarAlCarrito${articulo.id}" class="botonAgregarAlCarrito">AGREGAR</button>
-            </div>`;
+            <p id="idTotalArticuloBuscado${articulo.id}" class="totalArticuloBuscado">TOTAL ARTICULO:${articulo.precio*1}</p>
+            <button id="idResultadosBotonAgregar${articulo.id}" class="buttonGlobal">AGREGAR</button>`;
   //
-  //return contenidoHtml;            
 };
+//
+function crearCardCarrito(articulo){
+  //
+  return `
+            <h6>ID: ${articulo.id}</h6>
+            <h6>CODIGO: ${articulo.codigo.toUpperCase()}</h6>
+            <h6>NOMBRE: ${articulo.nombre.toUpperCase()}</h6>
+            <h6>MARCA:  ${articulo.marca.toUpperCase()}</h6>
+            <h6>CATEGORIA: ${articulo.categoria.toUpperCase()}</h6>
+            <h6>PRECIO: $${articulo.precio}</h6>  
+            <div id="idCarritoComprasCantidadDiv${articulo.id}" class="carritoComprasCantidadDiv">
+               <label class="labelGlobal" for="idCarritoComprasCantidadInput${articulo.id}" >CANTIDAD CARRITO: </label>            
+               <input id="idCarritoComprasCantidadInput${articulo.id}" class="inputGlobal" type="number" min=1 max=1000 value=${articulo.cantidad} required>
+            </div> 
+            <p id="idTotalArticuloComprado${articulo.id}" class="totalArticuloComprado">IMPORTE TOTAL ARTICULO:${articulo.precio*articulo.cantidad}</p>
+            <button id="idCarritoComprasBotonEliminar${articulo.id}" class="buttonGlobal">ELIMINAR</button>`;
+  //
+};
+
+function eliminarDelCarrito(e){
+  e.preventDefault();
+  const articuloId = e.target.dataset.articuloId;
+  //console.log("eliminarDelCarrito-articuloId="+articuloId);
+  const indice = carritoCompras.findIndex(articulo => articulo.id == articuloId);
+  //
+  carritoCompras.splice(indice,1);
+  //
+  document.getElementById("idMainCarritoCompras").innerHTML = ``;
+  carritoCompras.forEach(articulo =>{document.getElementById("idMainCarritoCompras").innerHTML += crearCardCarrito(articulo);
+     if (document.getElementById("idMainCarritoComprasTotalArticulo")) {
+        const totalCarrito = carritoCompras.reduce((sumador,articulo)  => sumador + (parseInt(articulo.precio)*parseInt(articulo.cantidad)),0);
+        document.getElementById("idTotalCarrito").innerText = `Total del carrito de compras: $${totalCarrito}`;
+     }
+     })
+  //
+  carritoCompras.forEach(articulo =>{
+    const tagBotonEliminar = document.getElementById("idCarritoComprasBotonEliminar"+articulo.id);
+    tagBotonEliminar.dataset.articuloId =articulo.id;
+    tagBotonEliminar.addEventListener("click", eliminarDelCarrito);
+  });
+}
 //
 function agregarAlCarrito(e){
   e.preventDefault();
   const articuloId = e.target.dataset.articuloId;
-  console.log("agregarAlCarrito-articuloId="+articuloId);
+  const cantidad = document.getElementById("idResultadoCantidadInput"+articuloId).value;
+  //console.log("agregarAlCarrito-articuloId="+articuloId);
   //
-  if (carritoCompras.some(articulo => articulo.id === articuloId)) {
+  if (carritoCompras.some(articulo => parseInt(articulo.id) === parseInt(articuloId))) {
      crearMensajeDialog("error", "El articulo ya existe en el carrito de compras");
   } else {
-     //carritoCompras.push(listaPrecioArticulos.find(articulo => articulo.id === articuloId));
      const articulo = listaPrecioArticulos.find(articulo => articulo.id === parseInt(articuloId));
-     console.log(articulo)
+     //console.log(articulo)
+     articulo.cantidad = cantidad;
+     articulo.totalArticulo = articulo.precio*cantidad;
      carritoCompras.push(articulo);
      const tagMainCarritoCompras = document.getElementById("idMainCarritoCompras");
-     /*
-     tagMainCarritoCompras.innerHTML += `
-     <div id="idArticuloEncontrado${articulo.id}" class="articuloEncontrado"> ${crearCard(articulo)}</div>`;
-     */
-    console.log("******************************************");
-    console.log(`
-     <div id="idArticuloEncontrado${articulo.id}" class="articuloEncontrado"> ${crearCard(articulo)}</div>`);
-        /*contenidoHtml += `
-                         <div id="idArticuloEncontrado${articulo.id}" class="articuloEncontrado">`;
-                         */
+     const tagDivArticulo = document.createElement("div");
+     tagDivArticulo.id = "idCarritoComprasArticulo"+articulo.id;
+     tagDivArticulo.className = "carritoComprasArticulo";
+     tagDivArticulo.innerHTML = crearCardCarrito(articulo);
+     tagMainCarritoCompras.appendChild(tagDivArticulo);                         
   }
+  
+  //     
+  if (carritoCompras.length > 0){
+     carritoCompras.forEach(articulo => {
+          //
+          const tagBotonEliminar = document.getElementById("idCarritoComprasBotonEliminar"+articulo.id);
+          tagBotonEliminar.dataset.articuloId = articulo.id;
+          tagBotonEliminar.addEventListener("click",eliminarDelCarrito);
+          //
+          const tagInputCantidad = document.getElementById("idCarritoComprasCantidadInput"+articulo.id);
+          tagInputCantidad.addEventListener("input",(e) => {
+            e.preventDefault();
+            //console.log(tagInputCantidad.value);
+            document.getElementById("idTotalArticuloComprado"+articulo.id).innerText="IMPORTE TOTAL ARTICULO:"+(tagInputCantidad.value*articulo.precio);
+          });
+        });
+  };
 }
 //
 function buscarArticulo(e){
   e.preventDefault();
-  console.log("buscarArticulo");
+  //console.log("buscarArticulo");
   const filtro = document.getElementById("idBuscarArticuloCategoria").value.toUpperCase();
   const tagResultadoBusqueda = document.getElementById("idMainResultados");
   let contenidoHtml = ``;
@@ -278,15 +331,21 @@ function buscarArticulo(e){
         });
   };
   //
-  console.log("**************************");
-  console.log(contenidoHtml)
   tagResultadoBusqueda.innerHTML = contenidoHtml;
   //     
   if (articulosEncontrados.length > 0){
      articulosEncontrados.forEach(articulo => {
-          const tagBotonAgregar = document.getElementById(id="idBotonAgregarAlCarrito"+articulo.id);
+      //
+          const tagBotonAgregar = document.getElementById("idResultadosBotonAgregar"+articulo.id);
           tagBotonAgregar.dataset.articuloId = articulo.id;
           tagBotonAgregar.addEventListener("click",agregarAlCarrito);
+          //
+          const tagInputCantidad = document.getElementById("idResultadoCantidadInput"+articulo.id);
+          tagInputCantidad.addEventListener("input",(e) => {
+            e.preventDefault();
+            //console.log(tagInputCantidad.value);
+            document.getElementById("idTotalArticuloBuscado"+articulo.id).innerText="IMPORTE TOTAL ARTICULO:"+(tagInputCantidad.value*articulo.precio);
+          });
         });
   };
   //
@@ -294,22 +353,72 @@ function buscarArticulo(e){
 //
 function verCarritoCompras(e){
   e.preventDefault();
-  console.log("verCarritoCompras")
+  //console.log("verCarritoCompras")
+  ////console.log(document.getElementById("idMainCarritoCompras").childElementCount);
+  //console.log("***************")
+  //console.log()
+  if ((carritoCompras.length === 0) /*|| (document.getElementById("idMainCarritoCompras").childElementCount === 0)*/) {
+    crearMensajeDialog("error", "El carrito de compras esta vacio");       
+  } else {
+    if (document.getElementById("idMainCarritoCompras").childElementCount === 0) {
+      carritoCompras.forEach(articulo =>{document.getElementById("idMainCarritoCompras").innerHTML += crearCardCarrito(articulo)});
+      
+     carritoCompras.forEach(articulo => {
+          const tagBotonEliminar = document.getElementById("idCarritoComprasBotonEliminar"+articulo.id);
+          tagBotonEliminar.dataset.articuloId = articulo.id;
+          tagBotonEliminar.addEventListener("click",eliminarDelCarrito);
+          
+          const tagInputCantidad = document.getElementById("idCarritoComprasCantidadInput"+articulo.id);
+          tagInputCantidad.addEventListener("input",(e) => {
+            e.preventDefault();
+            ////console.log(tagInputCantidad.value);
+            //articulo.cantidad = parseInt(tagInputCantidad.value);
+            //articulo.totalArticulo = parseInt(tagInputCantidad.value)*parseInt(articulo.precio);
+            document.getElementById("idTotalArticuloComprado"+articulo.id).innerText="IMPORTE TOTAL ARTICULO:"+(tagInputCantidad.value*articulo.precio);
+          });
+        });
+    }
+  }
 } 
 //
 function ocultarCarritoCompras(e){
   e.preventDefault();
-  console.log("ocultarCarritoCompras")
+  //console.log("ocultarCarritoCompras-1")
+  //
+  if ((document.getElementById("idMainCarritoCompras").childElementCount === 0) && (carritoCompras.length > 0)){
+    crearMensajeDialog("error","El carrito ya esta oculto")
+  } else if ((document.getElementById("idMainCarritoCompras").childElementCount > 0) && (carritoCompras.length > 0)){
+     carritoCompras.forEach(articulo => {
+          const tagInputCantidad = document.getElementById("idCarritoComprasCantidadInput"+articulo.id);
+            articulo.cantidad = parseInt(tagInputCantidad.value);
+            articulo.totalArticulo = parseInt(tagInputCantidad.value)*parseInt(articulo.precio);
+        });
+     document.getElementById("idMainCarritoCompras").innerHTML=``;
+      } else {
+    crearMensajeDialog("error","El carrito de compras esta vacio")
+ }
 }   
 //
 function vaciarCarritoCompras(e){
   e.preventDefault();
-  console.log("vaciarCarritoCompras")
+  //console.log("vaciarCarritoCompras")
+  if (carritoCompras.length > 0) {
+     document.getElementById("idMainCarritoCompras").innerHTML=``;
+     carritoCompras.splice(0,carritoCompras.length);
+     crearMensajeDialog("exito", "Se eliminaron los articulos del carrito")
+  }else{ 
+    crearMensajeDialog("error", "El carrito de compras esta vacio")
+    };
 }   
 //
 function confirmarCarritoCompras(e){
   e.preventDefault();
-  console.log("confirmarCarritoCompras")
+  //console.log("confirmarCarritoCompras")
+  if (carritoCompras.length > 0) {
+     crearMensajeDialog("exito", "Se comfirmo la compra")
+  } else {
+     crearMensajeDialog("error", "El carrito de compras esta vacio")
+  }     
 }  
 //
 const tagFormCrearArticulo = document.getElementById("idMainFormularioCrear");
@@ -329,3 +438,4 @@ tagBotonVaciarCarrito.addEventListener("click", vaciarCarritoCompras);
 //
 const tagBotonConfirmarCarrito = document.getElementById("idBotonConfirmarCarritoCompras");
 tagBotonConfirmarCarrito.addEventListener("click", confirmarCarritoCompras);
+
