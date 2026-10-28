@@ -50,8 +50,8 @@
                  <div class="mainFormularioFila">
                     <button id="idBotonCrearArticulo" class="buttonGlobal" type="submit">Guardar</button>
                  </div>
-                </form>
-          </div>          
+              </form>
+          </div>
 
           <h2 id="idMainTituloBuscar" class="mainTitulo">Buscar Articulos</h2>
           <div id="idMainContenedorFormularioBuscar" class="mainContenedorFormulario"> 
@@ -59,16 +59,21 @@
                  <div class="mainFormularioFila">
                     <label class="labelGlobal" for="idBuscarArticuloCategoria">Categoria:</label>
                     <select id="idBuscarArticuloCategoria" name="buscarArticuloCategoria" >
-                      <option value="">Seleccione Una Categoria</option>
-                      <option value="TELEVISOR">TELEVISOR</option>
-                      <option value="COCINA">COCINA</option>
-                      <option value="HELADERA">HELADERA</option>
+                      <option value="">TODOS</option>
+                      <option value="TELEVISOR">TELEVISORES</option>
+                      <option value="COCINA">COCINAS</option>
+                      <option value="HELADERA">HELADERAS</option>
                     </select>
                  </div>
                  <div class="mainFormularioFila">
                     <button id="idBotonBuscarArticulo" class="buttonGlobal" type="submit">Buscar</button>
                  </div>
                 </form>
+          </div>   
+          
+          <div id="idMainContenedorResultados" class="mainContenedorResultados">
+            <div id="idMainResultados" class="mainResultados">               
+            </div>
           </div>
 
          <h2 id="idTituloBotonesCarrito" class="mainTitulo">Carrito de Compras</h2>
@@ -79,7 +84,12 @@
                 <button id="idBotonVaciarCarritoCompras" class="buttonGlobal">Vaciar</button>
                 <button id="idBotonConfirmarCarritoCompras" class="buttonGlobal">Confirmar</button>
             </div>
-        </div>
+        </div> 
+          
+          <div id="idMainContenedorCarritoCompras" class="mainContenedorCarritoCompras">
+            <div id="idMainCarritoCompras" class="mainCarritoCompras">               
+            </div>
+          </div>
 
 
        </div>

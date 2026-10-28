@@ -145,7 +145,7 @@ class Articulo {
         this.precio = precio;
       };
 };
-
+//
 function crearMensajeDialog(tipo, texto){
     //
     let titulo;
@@ -171,7 +171,7 @@ function crearMensajeDialog(tipo, texto){
                                                    tagDialog.remove();
                                                   });                                           
 };
-
+//
 function cargarArticulo(e){
   e.preventDefault();
   const codigo = document.getElementById("idCrearArticuloCodigo").value;
@@ -208,14 +208,93 @@ function cargarArticulo(e){
   //
 }
 //
+function crearCard(articulo){
+  //
+  return `
+            <div id="IdArticuloEncontrado" class="articuloEncontrado">
+            <h6>ID: ${articulo.id}</h6>
+            <h6>CODIGO: ${articulo.codigo.toUpperCase()}</h6>
+            <h6>NOMBRE: ${articulo.nombre.toUpperCase()}</h6>
+            <h6>MARCA:  ${articulo.marca.toUpperCase()}</h6>
+            <h6>CATEGORIA: ${articulo.categoria.toUpperCase()}</h6>
+            <h6>PRECIO: $${articulo.precio}</h6>  
+            <div id="idArticuloEncontradoCantidadDiv" class="articuloEncontradoCantidadDiv">
+               <label class="labelGlobal" for="idCantidadArticuloEncontrado${articulo.id}Input" >CANTIDAD: </label>            
+               <input id="idCantidadArticuloEncontrado${articulo.id}Input" class="inputGlobal" type="number" min=1 max=1000 value=1 required>
+            </div> 
+            <a>PRECIO TOTAL:</a>
+            <button id="idBotonAgregarAlCarrito${articulo.id}" class="botonAgregarAlCarrito">AGREGAR</button>
+            </div>`;
+  //
+  //return contenidoHtml;            
+};
+//
+function agregarAlCarrito(e){
+  e.preventDefault();
+  const articuloId = e.target.dataset.articuloId;
+  console.log("agregarAlCarrito-articuloId="+articuloId);
+  //
+  if (carritoCompras.some(articulo => articulo.id === articuloId)) {
+     crearMensajeDialog("error", "El articulo ya existe en el carrito de compras");
+  } else {
+     //carritoCompras.push(listaPrecioArticulos.find(articulo => articulo.id === articuloId));
+     const articulo = listaPrecioArticulos.find(articulo => articulo.id === parseInt(articuloId));
+     console.log(articulo)
+     carritoCompras.push(articulo);
+     const tagMainCarritoCompras = document.getElementById("idMainCarritoCompras");
+     /*
+     tagMainCarritoCompras.innerHTML += `
+     <div id="idArticuloEncontrado${articulo.id}" class="articuloEncontrado"> ${crearCard(articulo)}</div>`;
+     */
+    console.log("******************************************");
+    console.log(`
+     <div id="idArticuloEncontrado${articulo.id}" class="articuloEncontrado"> ${crearCard(articulo)}</div>`);
+        /*contenidoHtml += `
+                         <div id="idArticuloEncontrado${articulo.id}" class="articuloEncontrado">`;
+                         */
+  }
+}
+//
 function buscarArticulo(e){
   e.preventDefault();
-  console.log("buscarArticulo")
+  console.log("buscarArticulo");
+  const filtro = document.getElementById("idBuscarArticuloCategoria").value.toUpperCase();
+  const tagResultadoBusqueda = document.getElementById("idMainResultados");
+  let contenidoHtml = ``;
+  tagResultadoBusqueda.innerHTML = ``;
+  let articulosEncontrados = []; 
+  listaPrecioArticulos.forEach(articulo => articulosEncontrados.push(articulo));
+  //
+  if (filtro.length > 0) {
+     articulosEncontrados = listaPrecioArticulos.filter(articulo => articulo.categoria.toUpperCase().includes(filtro.toUpperCase()));
+  };
+  //      
+  if (articulosEncontrados.length > 0){
+     articulosEncontrados.forEach(articulo => {
+        contenidoHtml += `
+                         <div id="idArticuloEncontrado${articulo.id}" class="articuloEncontrado">`;
+        contenidoHtml += crearCard(articulo);
+        contenidoHtml += `</div>`;
+        });
+  };
+  //
+  console.log("**************************");
+  console.log(contenidoHtml)
+  tagResultadoBusqueda.innerHTML = contenidoHtml;
+  //     
+  if (articulosEncontrados.length > 0){
+     articulosEncontrados.forEach(articulo => {
+          const tagBotonAgregar = document.getElementById(id="idBotonAgregarAlCarrito"+articulo.id);
+          tagBotonAgregar.dataset.articuloId = articulo.id;
+          tagBotonAgregar.addEventListener("click",agregarAlCarrito);
+        });
+  };
+  //
 }  
 //
 function verCarritoCompras(e){
   e.preventDefault();
-  console.log("VerCarritoCompras")
+  console.log("verCarritoCompras")
 } 
 //
 function ocultarCarritoCompras(e){
@@ -232,8 +311,7 @@ function confirmarCarritoCompras(e){
   e.preventDefault();
   console.log("confirmarCarritoCompras")
 }  
-
-
+//
 const tagFormCrearArticulo = document.getElementById("idMainFormularioCrear");
 tagFormCrearArticulo.addEventListener("submit", cargarArticulo);
 //
