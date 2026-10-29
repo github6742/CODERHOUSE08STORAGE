@@ -342,6 +342,7 @@ function eliminarDelCarrito(e){
 //
 function agregarAlCarrito(e){
   e.preventDefault();
+  let totalCarrito;
   const articuloId = e.target.dataset.articuloId;
   const cantidad = document.getElementById("idResultadoCantidadInput"+articuloId).value;
   //console.log("agregarAlCarrito-articuloId="+articuloId);
@@ -373,14 +374,23 @@ function agregarAlCarrito(e){
           const tagInputCantidad = document.getElementById("idCarritoComprasCantidadInput"+articulo.id);
           tagInputCantidad.addEventListener("input",(e) => {
             e.preventDefault();
+            console.log(tagInputCantidad.value);
+            articulo.cantidad = parseInt(tagInputCantidad.value);
+            articulo.totalArticulo = parseInt(tagInputCantidad.value)*parseInt(articulo.precio);
             //console.log(tagInputCantidad.value);
             document.getElementById("idTotalArticuloComprado"+articulo.id).innerText="Importe Total: $"+(tagInputCantidad.value*articulo.precio);
+            totalCarrito = carritoCompras.reduce((sumador,articulocc)  => sumador + (parseInt(articulocc.precio)*parseInt(articulocc.cantidad)),0);            
+            console.log("*30*ver")
+            console.log("totl-carrito: "+totalCarrito)            
+            console.log("*40*ver")
+           //document.getElementById("idMainCarritoComprasTotalArticulo").innerText = `Total del carrito de compras: $${totalCarrito}`;
+           document.getElementById("idTotalCarrito").innerText="Importe Total Carrito: $"+(totalCarrito);
           });
         });
-            const totalCarrito = carritoCompras.reduce((sumador,articulo)  => sumador + (parseInt(articulo.precio)*parseInt(articulo.cantidad)),0);
+           totalCarrito = carritoCompras.reduce((sumador,articulo)  => sumador + (parseInt(articulo.precio)*parseInt(articulo.cantidad)),0);
            //document.getElementById("idMainCarritoComprasTotalArticulo").innerText = `Total del carrito de compras: $${totalCarrito}`;
 
-            document.getElementById("idTotalCarrito").innerText="Importe Total Carrito: $"+(totalCarrito);
+           document.getElementById("idTotalCarrito").innerText="Importe Total Carrito: $"+(totalCarrito);
   };
 }
 //
@@ -430,6 +440,7 @@ function buscarArticulo(e){
 function verCarritoCompras(e){
   e.preventDefault();
   let contenidoHtml = ``;
+  let totalCarrito; 
   //console.log("verCarritoCompras")
   ////console.log(document.getElementById("idMainCarritoCompras").childElementCount);
   //console.log("***************")
@@ -464,22 +475,26 @@ function verCarritoCompras(e){
           tagInputCantidad.addEventListener("input",(e) => {
             e.preventDefault();
             console.log(tagInputCantidad.value);
-            //articulo.cantidad = parseInt(tagInputCantidad.value);
-            //articulo.totalArticulo = parseInt(tagInputCantidad.value)*parseInt(articulo.precio);
+            articulo.cantidad = parseInt(tagInputCantidad.value);
+            articulo.totalArticulo = parseInt(tagInputCantidad.value)*parseInt(articulo.precio);
             document.getElementById("idTotalArticuloComprado"+articulo.id).innerText="Importe Total: $"+(tagInputCantidad.value*articulo.precio);
             console.log("*10*ver")
-            let totalCarrito; 
             console.log("*20*ver")
             totalCarrito = carritoCompras.reduce((sumador,articulocc)  => sumador + (parseInt(articulocc.precio)*parseInt(articulocc.cantidad)),0);            
             console.log("*30*ver")
             console.log("totl-carrito: "+totalCarrito)            
             console.log("*40*ver")
            //document.getElementById("idMainCarritoComprasTotalArticulo").innerText = `Total del carrito de compras: $${totalCarrito}`;
-
            document.getElementById("idTotalCarrito").innerText="Importe Total Carrito: $"+(totalCarrito);
             //carritoCompras.reduce((sumador,articulo)  => sumador + (parseInt(articulo.precio)*parseInt(articulo.cantidad)),0)
           });
         });
+        totalCarrito = carritoCompras.reduce((sumador,articulocc)  => sumador + (parseInt(articulocc.precio)*parseInt(articulocc.cantidad)),0);            
+            console.log("*30*ver")
+            console.log("totl-carrito: "+totalCarrito)            
+            console.log("*40*ver")
+           //document.getElementById("idMainCarritoComprasTotalArticulo").innerText = `Total del carrito de compras: $${totalCarrito}`;
+           document.getElementById("idTotalCarrito").innerText="Importe Total Carrito: $"+(totalCarrito);
     }
   }
 } 
@@ -497,6 +512,7 @@ function ocultarCarritoCompras(e){
             articulo.totalArticulo = parseInt(tagInputCantidad.value)*parseInt(articulo.precio);
         });
      document.getElementById("idMainCarritoCompras").innerHTML=``;
+     document.getElementById("idTotalCarrito").innerHTML=``;
       } else {
     crearMensajeDialog("error","El carrito de compras esta vacio")
  }
