@@ -114,6 +114,8 @@ footer {
     flex-wrap: wrap; 
     gap: 15px;
     align-content: flex-start;
+    width: 100%;
+    max-width: 100%;
 }
 .articuloEncontrado{
     display: flex;
@@ -121,25 +123,96 @@ footer {
     /* justify-content: space-evenly; */
     gap: 8px;
     background-color: rgb(174, 226, 169);
-    height: 20rem;
-    width: 10rem;
-    border: solid 1px darkgray;
+    /* height: 20rem;
+    width: 10rem; */
+    /* width: 100%; */
+    max-width: 100%;
+    /* border: solid 1px darkgray; */
+    border: 1px solid rgb(47, 134, 39);
     border-radius: 0.5rem;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin: 15px;
+}
+.contenedorCard{
+    /* background-color: chocolate; */
+    /*width: 100%;
+    max-width: 100%;
+    */
+    height: 20rem;
+    width: 10rem; 
+    display: flex; 
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
 }
 .contenedorCardDatos {
-    background-color: blue;
+    /* background-color: blue; */
     height: 15rem;
-    overflow-y: auto;
+    /* width: 10rem; */
+    width: 100%;
+    max-width: 100%;
+
+    /* overflow-x: auto; */
+    /* overflow-x: auto; */
 }
-.articuloEncontrado p, .labelCard{
-    font-size: 0.80rem;
-    text-transform: capitalize;
-    background-color: red;
+.contenedorCardDatosFila{
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.25rem;
+}
+.cardDatosFilaEtiqueta{
+    /* min-width: 4rem; */
+    min-width: 40%;
+    /* background-color: yellow; */
+    font-size: 14px;
+    color: green;
+}
+.cardDatosFilaValor{
+    /* min-width: 6rem; */
+    /* background-color: rgb(255, 0, 191);  */
+    word-break: break-word;
+    overflow-wrap: break-word;
+    font-size: 14px;
+    color: green;
+    font-weight: bold;
+}
+.resultadoCantidadDiv{
+    display: flex;
+    /* background-color: gray; */
+    gap: 0.25rem;
+    padding: 0.25rem;
+}
+.labelCard{
+    /* background-color: yellow;   */
+    font-size: 14px;  
+    color: green;
+    font-weight: bold;
+}
+.inputCard{
+    /* background-color: blue; */
+    text-align: right;
+    font-size: 14px;
+}
+.totalArticuloBuscado{
+    font-size: 14px;
+    padding: 5px;
+}
+.contenedorCardDatosBoton{
+    display: flex;
+    justify-content: center;
 }
 .buttonCard{
     background-color: green;
     color:white;
     padding: 0.5rem;
+    width: 90%;
+    height: 70%;
+    border-radius: 5px;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+
 }
 /******************
    CLASES GLOBALES
@@ -148,7 +221,6 @@ footer {
     color: white;
     background-color: green;
     width: 100%;
-    font-size: bold;
     padding: 0.25rem;
     font-size: 1.5rem;
     border-radius: 5px;
@@ -206,4 +278,119 @@ footer {
     padding: 0.25rem;
     font-size: 1.5rem;
     border-radius: 5px;
+}
+/******************************
+   MAIN CARRITO COMPRAS RESULTADOS
+*********************************/
+.mainContenedorCarritoCompras{
+    margin-top: 1rem;
+    width: 70%;
+    background-color:  #ddeeec;
+}
+.mainCarritoCompras{
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 15px;
+    align-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+}
+.carritoComprasArticulo{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-evenly; */
+    gap: 8px;
+    background-color: rgb(174, 226, 169);
+    /* height: 20rem;
+    width: 10rem; */
+    /* width: 100%; */
+    max-width: 100%;
+    /* border: solid 1px darkgray; */
+    border: 1px solid rgb(47, 134, 39);
+    border-radius: 0.5rem;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin: 15px;
+}
+.contenedorCard{
+    /* background-color: chocolate; */
+    /*width: 100%;
+    max-width: 100%;
+    */
+    height: 20rem;
+    width: 10rem; 
+    display: flex; 
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+.contenedorCardDatos {
+    /* background-color: blue; */
+    height: 15rem;
+    /* width: 10rem; */
+    width: 100%;
+    max-width: 100%;
+
+    /* overflow-x: auto; */
+    /* overflow-x: auto; */
+}
+.contenedorCardDatosFila{
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.25rem;
+}
+.cardDatosFilaEtiqueta{
+    /* min-width: 4rem; */
+    min-width: 40%;
+    /* background-color: yellow; */
+    font-size: 14px;
+    color: green;
+}
+.cardDatosFilaValor{
+    /* min-width: 6rem; */
+    /* background-color: rgb(255, 0, 191);  */
+    word-break: break-word;
+    overflow-wrap: break-word;
+    font-size: 14px;
+    color: green;
+    font-weight: bold;
+}
+.resultadoCantidadDiv{
+    display: flex;
+    /* background-color: gray; */
+    gap: 0.25rem;
+    padding: 0.25rem;
+}
+.labelCard{
+    /* background-color: yellow;   */
+    font-size: 14px;  
+    color: green;
+    font-weight: bold;
+}
+.inputCard{
+    /* background-color: blue; */
+    text-align: right;
+    font-size: 14px;
+}
+.totalArticuloComprado{
+    font-size: 14px;
+    padding: 5px;
+}
+.contenedorCardDatosBoton{
+    display: flex;
+    justify-content: center;
+}
+.buttonCard{
+    background-color: green;
+    color:white;
+    padding: 0.5rem;
+    width: 90%;
+    height: 70%;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+}
+.totalCarrito{
+    background-color: red;
 }

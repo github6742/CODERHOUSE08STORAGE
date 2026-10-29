@@ -209,24 +209,37 @@ function cargarArticulo(e){
   //
 }
 //
-
 function crearCard(articulo){
   //
             //<h6>CATEGORIA: ${articulo.categoria.toUpperCase()}</h6>
   return ` <div class="contenedorCard">
-              <div class="contenedorCardDatos"
-                <p>Id: ${articulo.id}</p>
-                <p>Codigo: ${articulo.codigo.toUpperCase()}</p>
-                <p>Nombre: ${articulo.nombre.toUpperCase()}</p>
-                <p>Marca:  ${articulo.marca.toUpperCase()}</p>
-                <p>Precio: $${articulo.precio}</p>  
+              <div class="contenedorCardDatos">
+                <div class="contenedorCardDatosFila">
+                     <p class="cardDatosFilaEtiqueta">Id:</p><p class="cardDatosFilaValor">${articulo.id}</p>
+                </div>
+                <div class="contenedorCardDatosFila">
+                     <p class="cardDatosFilaEtiqueta">Codigo:</p><p class="cardDatosFilaValor">${articulo.codigo.toUpperCase()}</p>
+                </div>
+                <div class="contenedorCardDatosFila">
+                     <p class="cardDatosFilaEtiqueta">Nombre:</p><p class="cardDatosFilaValor">${articulo.nombre.toUpperCase()}</p>
+                </div>
+                <div class="contenedorCardDatosFila">
+                     <p class="cardDatosFilaEtiqueta">Marca:</p><p class="cardDatosFilaValor">${articulo.marca.toUpperCase()}</p>
+                </div>
+                <div class="contenedorCardDatosFila">
+                     <p class="cardDatosFilaEtiqueta">Precio:</p><p class="cardDatosFilaValor">$${articulo.precio}</p>  
+                </div>
               </div>
               <div id="idResultadoCantidadDiv${articulo.id}" class="resultadoCantidadDiv">
                   <label class="labelCard" for="idResultadoCantidadInput${articulo.id}" >Cantidad: </label>            
                   <input id="idResultadoCantidadInput${articulo.id}" class="inputCard" type="number" min=1 max=1000 value=1 required>
               </div> 
-              <p id="idTotalArticuloBuscado${articulo.id}" class="totalArticuloBuscado">Importe Total:${articulo.precio*1}</p>
-              <button id="idResultadosBotonAgregar${articulo.id}" class="buttonCard">AGREGAR</button>
+              <div class="contenedorCardDatosFila">
+                   <p id="idTotalArticuloBuscado${articulo.id}" class="labelCard">Importe Total: $${articulo.precio*1}</p>
+              </div>
+              <div class="contenedorCardDatosBoton">
+                <button id="idResultadosBotonAgregar${articulo.id}" class="buttonCard">AGREGAR</button>
+              </div>  
             </div>
             `;
   //
@@ -250,10 +263,43 @@ function crearCard(articulo){
   //
 };
 */
-//
+
 function crearCardCarrito(articulo){
-  //
   
+  return ` <div class="contenedorCard">
+              <div class="contenedorCardDatos">
+                <div class="contenedorCardDatosFila">
+                     <p class="cardDatosFilaEtiqueta">Id:</p><p class="cardDatosFilaValor">${articulo.id}</p>
+                </div>
+                <div class="contenedorCardDatosFila">
+                     <p class="cardDatosFilaEtiqueta">Codigo:</p><p class="cardDatosFilaValor">${articulo.codigo.toUpperCase()}</p>
+                </div>
+                <div class="contenedorCardDatosFila">
+                     <p class="cardDatosFilaEtiqueta">Nombre:</p><p class="cardDatosFilaValor">${articulo.nombre.toUpperCase()}</p>
+                </div>
+                <div class="contenedorCardDatosFila">
+                     <p class="cardDatosFilaEtiqueta">Marca:</p><p class="cardDatosFilaValor">${articulo.marca.toUpperCase()}</p>
+                </div>
+                <div class="contenedorCardDatosFila">
+                     <p class="cardDatosFilaEtiqueta">Precio:</p><p class="cardDatosFilaValor">$${articulo.precio}</p>  
+                </div>
+              </div>
+              <div id="idCarritoComprasCantidadDiv${articulo.id}" class="carritoComprasCantidadDiv">
+                  <label class="labelCard" for="idCarritoComprasCantidadInput${articulo.id}" >Cantidad: </label>            
+                  <input id="idCarritoComprasCantidadInput${articulo.id}" class="inputCard" type="number" min=1 max=1000 value=${articulo.cantidad} required>
+              </div> 
+              <div class="contenedorCardDatosFila">
+                   <p id="idTotalArticuloComprado${articulo.id}" class="labelCard">Importe Total: $${articulo.precio*articulo.cantidad}</p>
+              </div>
+              <div class="contenedorCardDatosBoton">
+                <button id="idCarritoComprasBotonEliminar${articulo.id}" class="buttonCard">ELIMINAR</button>                
+              </div>  
+            </div>
+            `;
+}  
+//
+/*function crearCardCarrito(articulo){
+  //  
             //<h6>CATEGORIA: ${articulo.categoria.toUpperCase()}</h6>
   return `
             <h6>ID: ${articulo.id}</h6>
@@ -264,11 +310,12 @@ function crearCardCarrito(articulo){
             <div id="idCarritoComprasCantidadDiv${articulo.id}" class="carritoComprasCantidadDiv">
                <label class="labelGlobal" for="idCarritoComprasCantidadInput${articulo.id}" >Cantidad Carrito: </label>            
                <input id="idCarritoComprasCantidadInput${articulo.id}" class="inputGlobal" type="number" min=1 max=1000 value=${articulo.cantidad} required>
+                      id="idCarritoComprasCantidadInput${articulo.id}" 
             </div> 
-            <p id="idTotalArticuloComprado${articulo.id}" class="totalArticuloComprado">Importe Total:${articulo.precio*articulo.cantidad}</p>
+            <p id="idTotalArticuloComprado${articulo.id}" class="totalArticuloComprado">Importe Total: $${articulo.precio*articulo.cantidad}</p>
             <button id="idCarritoComprasBotonEliminar${articulo.id}" class="buttonCard">ELIMINAR</button>`;
   //
-};
+};*/
 
 function eliminarDelCarrito(e){
   e.preventDefault();
@@ -302,7 +349,7 @@ function agregarAlCarrito(e){
   if (carritoCompras.some(articulo => parseInt(articulo.id) === parseInt(articuloId))) {
      crearMensajeDialog("error", "El articulo ya existe en el carrito de compras");
   } else {
-     const articulo = listaPrecioArticulos.find(articulo => articulo.id === parseInt(articuloId));
+     const articulo = listaPrecioArticulos.find(articulo => parseInt(articulo.id) === parseInt(articuloId));
      //console.log(articulo)
      articulo.cantidad = cantidad;
      articulo.totalArticulo = articulo.precio*cantidad;
@@ -327,9 +374,13 @@ function agregarAlCarrito(e){
           tagInputCantidad.addEventListener("input",(e) => {
             e.preventDefault();
             //console.log(tagInputCantidad.value);
-            document.getElementById("idTotalArticuloComprado"+articulo.id).innerText="IMPORTE TOTAL ARTICULO:"+(tagInputCantidad.value*articulo.precio);
+            document.getElementById("idTotalArticuloComprado"+articulo.id).innerText="Importe Total: $"+(tagInputCantidad.value*articulo.precio);
           });
         });
+            const totalCarrito = carritoCompras.reduce((sumador,articulo)  => sumador + (parseInt(articulo.precio)*parseInt(articulo.cantidad)),0);
+           //document.getElementById("idMainCarritoComprasTotalArticulo").innerText = `Total del carrito de compras: $${totalCarrito}`;
+
+            document.getElementById("idTotalCarrito").innerText="Importe Total Carrito: $"+(totalCarrito);
   };
 }
 //
@@ -369,7 +420,7 @@ function buscarArticulo(e){
           tagInputCantidad.addEventListener("input",(e) => {
             e.preventDefault();
             //console.log(tagInputCantidad.value);
-            document.getElementById("idTotalArticuloBuscado"+articulo.id).innerText="IMPORTE TOTAL ARTICULO:"+(tagInputCantidad.value*articulo.precio);
+            document.getElementById("idTotalArticuloBuscado"+articulo.id).innerText="Importe Total: $"+(tagInputCantidad.value*articulo.precio);
           });
         });
   };
@@ -378,6 +429,7 @@ function buscarArticulo(e){
 //
 function verCarritoCompras(e){
   e.preventDefault();
+  let contenidoHtml = ``;
   //console.log("verCarritoCompras")
   ////console.log(document.getElementById("idMainCarritoCompras").childElementCount);
   //console.log("***************")
@@ -385,10 +437,25 @@ function verCarritoCompras(e){
   if ((carritoCompras.length === 0) /*|| (document.getElementById("idMainCarritoCompras").childElementCount === 0)*/) {
     crearMensajeDialog("error", "El carrito de compras esta vacio");       
   } else {
+      console.log("coun---"+document.getElementById("idMainCarritoCompras").childElementCount )
     if (document.getElementById("idMainCarritoCompras").childElementCount === 0) {
-      carritoCompras.forEach(articulo =>{document.getElementById("idMainCarritoCompras").innerHTML += crearCardCarrito(articulo)});
-      
-     carritoCompras.forEach(articulo => {
+      carritoCompras.forEach(articulo =>{
+        /* */
+        contenidoHtml += `
+                         <div id="idCarritoComprasArticulo${articulo.id}" class="articuloEncontrado">`;
+        contenidoHtml += crearCardCarrito(articulo);
+        contenidoHtml += `</div>`;
+        /**/
+        
+        //document.getElementById("idMainCarritoCompras").innerHTML += crearCardCarrito(articulo)
+      });
+      console.log("*********************************")
+      console.log(document.getElementById("idMainCarritoCompras").innerHTML)
+      console.log("*********************************")
+      console.log(contenidoHtml)
+      console.log("*********************************")
+      document.getElementById("idMainCarritoCompras").innerHTML =contenidoHtml;
+      carritoCompras.forEach(articulo => {
           const tagBotonEliminar = document.getElementById("idCarritoComprasBotonEliminar"+articulo.id);
           tagBotonEliminar.dataset.articuloId = articulo.id;
           tagBotonEliminar.addEventListener("click",eliminarDelCarrito);
@@ -396,10 +463,21 @@ function verCarritoCompras(e){
           const tagInputCantidad = document.getElementById("idCarritoComprasCantidadInput"+articulo.id);
           tagInputCantidad.addEventListener("input",(e) => {
             e.preventDefault();
-            ////console.log(tagInputCantidad.value);
+            console.log(tagInputCantidad.value);
             //articulo.cantidad = parseInt(tagInputCantidad.value);
             //articulo.totalArticulo = parseInt(tagInputCantidad.value)*parseInt(articulo.precio);
-            document.getElementById("idTotalArticuloComprado"+articulo.id).innerText="IMPORTE TOTAL ARTICULO:"+(tagInputCantidad.value*articulo.precio);
+            document.getElementById("idTotalArticuloComprado"+articulo.id).innerText="Importe Total: $"+(tagInputCantidad.value*articulo.precio);
+            console.log("*10*ver")
+            let totalCarrito; 
+            console.log("*20*ver")
+            totalCarrito = carritoCompras.reduce((sumador,articulocc)  => sumador + (parseInt(articulocc.precio)*parseInt(articulocc.cantidad)),0);            
+            console.log("*30*ver")
+            console.log("totl-carrito: "+totalCarrito)            
+            console.log("*40*ver")
+           //document.getElementById("idMainCarritoComprasTotalArticulo").innerText = `Total del carrito de compras: $${totalCarrito}`;
+
+           document.getElementById("idTotalCarrito").innerText="Importe Total Carrito: $"+(totalCarrito);
+            //carritoCompras.reduce((sumador,articulo)  => sumador + (parseInt(articulo.precio)*parseInt(articulo.cantidad)),0)
           });
         });
     }
