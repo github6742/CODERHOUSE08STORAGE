@@ -156,7 +156,8 @@
 
 // suma(12, 12);
 
-// Desestructuración o destructuring: si yo quiero acceder a cada valor de este objeto, puedo hacerlo mediante dot notation o bien, puedo hacer destructuring de sus valores
+// Desestructuración o destructuring: 
+// si yo quiero acceder a cada valor de este objeto, puedo hacerlo mediante dot notation o bien, puedo hacer destructuring de sus valores
 
 // const objeto = {
 //     id: 1,
