@@ -173,18 +173,33 @@ if (articulosEncontradosStorage.length > 0) {
   localStorage.setItem("articulosEncontrados",JSON.stringify([...articulosEncontradosStorage]));
   articulosEncontrados = [...articulosEncontradosStorage]
   console.log("---articulosEnontrados: ")
-  console.log(articulosEncontrados)
+  //console.log(articulosEncontrados)
+  articulosEncontrados.forEach(articulo => {  
+    console.log("articuloEncontrado.id: " +articulo.id)
+    console.log("articuloEncontrado.cantidad: " +articulo.cantidad)
+  });
+  console.log("---articulosEnontrados: ")
+  articulosEncontradosStorage.forEach(articulo => {  
+    console.log("articuloEncontradoStorage.id: " +articulo.id)
+    console.log("articuloEncontradoStorage.cantidad: " +articulo.cantidad)
+  });
+  console.log("---articulosEnontrados: ")
 } else {
   console.log("articulosencontrados = 0")
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-let mainResultados = localStorage.getItem("mainResultados") || "";
+//let mainResultados = localStorage.getItem("mainResultados") || "";
 //
 if(articulosEncontrados.length > 0) {
-        let contenidoHtml=``;
+    buscarArticulosHtml(articulosEncontrados);
+}
+
+  
+  
+   /*     let contenidoHtml=``;
 articulosEncontrados.forEach( articulo => {
-  /* */
+  
         
         contenidoHtml += `
                          <div id="idArticuloEncontrado${articulo.id}" class="articuloEncontrado">`;
@@ -195,7 +210,7 @@ articulosEncontrados.forEach( articulo => {
 });
 document.getElementById("idMainResultados").innerHTML = contenidoHtml;
 
-//********* */
+
    
   if (articulosEncontrados.length > 0){
      articulosEncontrados.forEach(articulo => {
@@ -216,11 +231,12 @@ document.getElementById("idMainResultados").innerHTML = contenidoHtml;
         });
         localStorage.setItem("articulosEncontrados",JSON.stringify(articulosEncontrados))
       }
+        */
 ///////////////////////
-};
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-console.log("mainResultados")
-console.log(mainResultados)
+//console.log("mainResultados")
+//console.log(mainResultados)
 ///
 //if (mainResultados === "SI") {}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -315,7 +331,7 @@ function crearCard(articulo){
               </div>
               <div id="idResultadoCantidadDiv${articulo.id}" class="resultadoCantidadDiv">
                   <label class="labelCard" for="idResultadoCantidadInput${articulo.id}" >Cantidad: </label>            
-                  <input id="idResultadoCantidadInput${articulo.id}" class="inputCard" type="number" min=1 max=1000 value=1 required>
+                  <input id="idResultadoCantidadInput${articulo.id}" class="inputCard" type="number" min=1 max=1000 value=${articulo.cantidad||1} required>
               </div> 
               <div class="contenedorCardDatosFila">
                    <p id="idTotalArticuloBuscado${articulo.id}" class="labelCard">Importe Total: $${articulo.precio*1}</p>
@@ -431,6 +447,7 @@ function agregarAlCarrito(e){
             document.getElementById("idTotalArticuloComprado"+articulo.id).innerText="Importe Total: $"+(tagInputCantidad.value*articulo.precio);
             totalCarrito = carritoCompras.reduce((sumador,articulocc)  => sumador + (parseInt(articulocc.precio)*parseInt(articulocc.cantidad)),0);  
             document.getElementById("idTotalCarrito").innerText="Importe Total Carrito: $"+(totalCarrito);
+            //localStorage.setItem("carritoCompras", JSON.stringify(carritoCompras));
           });
           //
       });
@@ -440,14 +457,54 @@ function agregarAlCarrito(e){
   };
 }
 //
+function buscarArticulosHtml(lista){
+  //e.preventDefault() ;
+  const tagResultadoBusqueda = document.getElementById("idMainResultados");
+  tagResultadoBusqueda.innerHTML = ``;
+  //
+  let contenidoHtml = ``;
+  if (lista.length > 0){
+     lista.forEach(articulo => {
+        contenidoHtml += `
+                         <div id="idArticuloEncontrado${articulo.id}" class="articuloEncontrado">`;
+        contenidoHtml += crearCard(articulo);
+        contenidoHtml += `</div>`;
+        });
+  };
+  //
+  tagResultadoBusqueda.innerHTML = contenidoHtml;
+  //
+  //document.getElementById("idMainResultados").childElementCount > 0 && localStorage.setItem("mainResultados","SI")
+  //   
+  if (lista.length > 0){
+     lista.forEach(articulo => {
+      //  
+          //localStorage.setItem("idResultadoCantidadInput"+articulo.id,document.getElementById("idResultadoCantidadInput"+articulo.id).value);
+          const tagBotonAgregar = document.getElementById("idResultadosBotonAgregar"+articulo.id);
+          tagBotonAgregar.dataset.articuloId = articulo.id;
+          tagBotonAgregar.addEventListener("click",agregarAlCarrito);
+          //
+          const tagInputCantidad = document.getElementById("idResultadoCantidadInput"+articulo.id);
+          tagInputCantidad.addEventListener("input",(e) => {
+            e.preventDefault();
+            articulo.cantidad = tagInputCantidad.value;
+            articulo.totalArticulo = tagInputCantidad.value * articulo.precio;
+            document.getElementById("idTotalArticuloBuscado"+articulo.id).innerText="Importe Total: $"+(tagInputCantidad.value*articulo.precio);
+            localStorage.setItem("articulosEncontrados", JSON.stringify(lista));
+          });
+          //
+          const tagCantidad = document.getElementById("idResultadoCantidadInput"+articulo.id);
+          //tagCantidad.addEventListener("input",()=>localStorage.setItem("idResultadoCantidadInput"+articulo.id,
+          //                                                               document.getElementById("idResultadoCantidadInput"+articulo.id).value));
+        });
+        //localStorage.setItem("articulosEncontrados",JSON.stringify(articulosEncontrados))
+  };
+}
 function buscarArticulo(e){
   e.preventDefault();
   //
   const filtro = document.getElementById("idBuscarArticuloCategoria").value.toUpperCase();
-  const tagResultadoBusqueda = document.getElementById("idMainResultados");
   //
-  let contenidoHtml = ``;
-  tagResultadoBusqueda.innerHTML = ``;
   //let articulosEncontrados = []; 
   //listaPrecioArticulos.forEach(articulo => articulosEncontrados.push(articulo));
   //let articulosEncontrados;// = [...listaPrecioArticulos]
@@ -460,39 +517,9 @@ function buscarArticulo(e){
   /*if (filtro.length > 0) {
      articulosEncontrados = listaPrecioArticulos.filter(articulo => articulo.categoria.toUpperCase().includes(filtro.toUpperCase()));
   };*/  
-  //      
-  if (articulosEncontrados.length > 0){
-     articulosEncontrados.forEach(articulo => {
-        contenidoHtml += `
-                         <div id="idArticuloEncontrado${articulo.id}" class="articuloEncontrado">`;
-        contenidoHtml += crearCard(articulo);
-        contenidoHtml += `</div>`;
-        });
-  };
-  //
-  tagResultadoBusqueda.innerHTML = contenidoHtml;
-  //
-  document.getElementById("idMainResultados").childElementCount > 0 && localStorage.setItem("mainResultados","SI")
   //   
-  if (articulosEncontrados.length > 0){
-     articulosEncontrados.forEach(articulo => {
-      //  
-          localStorage.setItem("idResultadoCantidadInput"+articulo.id,document.getElementById("idResultadoCantidadInput"+articulo.id).value);
-          const tagBotonAgregar = document.getElementById("idResultadosBotonAgregar"+articulo.id);
-          tagBotonAgregar.dataset.articuloId = articulo.id;
-          tagBotonAgregar.addEventListener("click",agregarAlCarrito);
-          //
-          const tagInputCantidad = document.getElementById("idResultadoCantidadInput"+articulo.id);
-          tagInputCantidad.addEventListener("input",(e) => {
-            e.preventDefault();
-            document.getElementById("idTotalArticuloBuscado"+articulo.id).innerText="Importe Total: $"+(tagInputCantidad.value*articulo.precio);
-          });
-          const tagCantidad = document.getElementById("idResultadoCantidadInput"+articulo.id);
-          tagCantidad.addEventListener("input",()=>localStorage.setItem("idResultadoCantidadInput"+articulo.id,
-                                                                         document.getElementById("idResultadoCantidadInput"+articulo.id).value));
-        });
-        localStorage.setItem("articulosEncontrados",JSON.stringify(articulosEncontrados))
-  };
+  localStorage.setItem("articulosEncontrados",JSON.stringify(articulosEncontrados));
+  buscarArticulosHtml(articulosEncontrados);
   //
 }  
 //
@@ -623,7 +650,3 @@ tagInputCrearArticuloPrecio.addEventListener("input",()=>localStorage.setItem("i
 const tagInputBuscarArticuloCategoria = document.getElementById("idBuscarArticuloCategoria");
 tagInputBuscarArticuloCategoria.addEventListener("input",()=>localStorage.setItem("idBuscarArticuloCategoria",document.getElementById("idBuscarArticuloCategoria").value));
 //
-console.log(JSON.parse(localStorage.getItem("articulosEncontrados")))
-if (JSON.parse(localStorage.getItem("articulosEncontrados"))){
-console.log("ssssssssssss")
-}
